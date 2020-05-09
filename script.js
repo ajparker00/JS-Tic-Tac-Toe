@@ -37,14 +37,20 @@ function handleClick(e) {
   if (checkWin(currentClass)) {
     endGame(false);
   }
-  // // Check for Draw
+  // Check for Draw
+  else if (isDraw()) {
+    endGame(true);
+  }
   // Swith turns
-  swapTurns();
-  setBoardHoverClass();
+  else {
+    swapTurns();
+    setBoardHoverClass();
+  }
 }
 
 function endGame(draw) {
   if (draw) {
+    winningMessageTextElement.innerText = 'Draw!';
   } else {
     winningMessageTextElement.innerText = `${
       circleTurn ? "O's " : "X's"
@@ -55,6 +61,14 @@ function endGame(draw) {
 
 function placeMark(cell, currentClass) {
   cell.classList.add(currentClass);
+}
+
+function isDraw() {
+  return [...cellElements].every((cell) => {
+    return (
+      cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
+    );
+  });
 }
 
 function swapTurns() {
