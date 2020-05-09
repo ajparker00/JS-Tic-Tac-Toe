@@ -12,6 +12,7 @@ const WINNING_COMBINATIONS = [
 ];
 const cellElements = document.querySelectorAll('[data-cell]');
 const board = document.getElementById('board');
+const winningMessageElement = document.getElementById('winningMessage');
 const winningMessageTextElement = document.querySelector(
   '[data-winning-message-text]'
 );
@@ -36,12 +37,20 @@ function handleClick(e) {
   if (checkWin(currentClass)) {
     endGame(false);
   }
-  // Check for Draw
-      winningMessageTextElement.innerText = `${circleTurn ? 'O's' :  X's} Wins`
-  }
+  // // Check for Draw
   // Swith turns
   swapTurns();
   setBoardHoverClass();
+}
+
+function endGame(draw) {
+  if (draw) {
+  } else {
+    winningMessageTextElement.innerText = `${
+      circleTurn ? "O's " : "X's"
+    } Win's!!!`;
+  }
+  winningMessageElement.classList.add('show');
 }
 
 function placeMark(cell, currentClass) {
